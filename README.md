@@ -1,4 +1,7 @@
-#Arduino driver for Sharp Memory LCD #
+# Arduino driver for Sharp Memory LCD #
+
+----------
+
 [Sharp's Memory LCD](https://www.sharpsma.com/products?sharpCategory=Memory%20LCD) is a lightweight display with 1-bit memory in every pixel allowing high-contrast, ultra-thin and at the time same delivering a relatively high frame rate (20Hz max)  at merely microWatt power consumption level.<br>
 ![](http://www.techtoys.com.hk/Sharp_MemoryLCD/picts/cover.png)<br>
 Driver compatible with ESP32 and Arduino M0 PRO listed in this repository. Although this driver has been developed for a dedicated [EVK](http://www.techtoys.com.hk/Sharp_MemoryLCD/EVK/Sharp%20Memory%20LCD%20Shield%20-%20User%20Guide-Update20181207.pdf), a simplified breakout board with few jumper wires are enough to test this library out. <br>
