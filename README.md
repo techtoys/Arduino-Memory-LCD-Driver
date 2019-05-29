@@ -77,3 +77,5 @@ After running the for-loop above the LCD displays something this:
 To extend this concept to 2D, we may partially update a rectangular area with GFXDisplayUpdateBlock() to keep the content at the right unchanged while updating the area at the left. Graphical interface illustrated in the Arduino Sketch BloodPressure_GU.ino shows a counting blood pressure reading at the left with a stood still icon of an up-arrow at the right. Feel free to open this sketch and change the delay constant in loop() from delay(50) to delay(1), or removing it to get an impression on how fast it can go. Another unique features of Memory LCD is partial update as long as it spans a horizontal region. Given the blood pressure reading GUI below this means only the area occupying the font height of the SYS. pressure is changed while the top and bottom regions unchanged when it is the systolic pressure counting.
 ![](http://www.techtoys.com.hk/Sharp_MemoryLCD/picts/partial_update_concept.png)<br>
 This leads to a faster frame rate even with a slow SPI transfer rate of 2MHz. 
+
+# **YouTube** video : [https://youtu.be/DUMHNQGVNnY](https://youtu.be/DUMHNQGVNnY) #
