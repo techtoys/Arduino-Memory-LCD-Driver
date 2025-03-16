@@ -9,6 +9,11 @@
  * Date :		29-11-2018
  * */
 
+/**
+ * Revision : Add support for LS013B7DH03 (128*128) & LS018B7DH02 (230*303)
+ *
+ * Date:		29-04-2022
+ */
 #ifndef MEMORY_LCD_H
 #define MEMORY_LCD_H
 
@@ -22,13 +27,17 @@
  *        	LS032B7DD02 = 3.16" Memory LCD with 336*536 pixels<br>
  *        	LS044Q7DH01 = 4.4" Memory LCD with 320*240 pixels<br>
  * 			LS006B7DH03 = 0.56" Memory LCD with 64*64 pixels, 3V input voltage<br>
- * 			LS011B7DH03 = 1.08" Memory LCD with 160*68, 3V input voltage(br>)
+ * 			LS011B7DH03 = 1.08" Memory LCD with 160*68, 3V input voltage<br>
+ * 			LS013B7DH03 = 1.28" Memory LCD with 128*128 pixels, 3V input voltage<br>
+ * 			LS018B7DH02 = 1.80" Memory LCD with 230*303 pixels, 5V input voltage<br>
  */
 #define   LS027B7DH01
 //#define	LS032B7DD02
 //#define 	LS044Q7DH01
 //#define 	LS006B7DH03
 //#define 	LS011B7DH03
+//#define	LS013B7DH03
+//#define 	LS018B7DH02
 
 //@note pin number definition, hardware dependent
 #if defined (ARDUINO)
@@ -76,6 +85,12 @@ extern "C" {
 #elif defined LS011B7DH03
 	#define DISP_HOR_RESOLUTION	160
 	#define DISP_VER_RESOLUTION	68
+#elif defined LS013B7DH03
+	#define DISP_HOR_RESOLUTION	128
+	#define DISP_VER_RESOLUTION	128
+#elif defined LS018B7DH02
+	#define DISP_HOR_RESOLUTION	240 //pixel-wise it is 230x303, in memory it is actually 240*303
+	#define DISP_VER_RESOLUTION	303
 #else
 	#error You need to define the horizontal and vertical resolution for a new model
 #endif
