@@ -29,6 +29,10 @@
  *        Date:        14th June 2018
  */
 
+  // Unify tone generation for ESP32 to tone(pin,freq,duration) and for other platforms to buzz(pin,freq,duration)
+  // Date: 16th March 2025
+  // Programmer: John Leung
+
 #include "MemoryLCD.h"
 
 #if defined (ESP32)
@@ -66,17 +70,10 @@ extern const tImage battery_46x26;
 extern const tImage pulseRate_icon;
 extern const tImage IoT_message;
 
-void buzz(int pin, unsigned int freq, unsigned long duration);
+
 void buzz(int pin, unsigned int freq, unsigned long duration)
 {
-#if defined (ESP32)
-  ledcWriteTone(0, (double)freq);
-  ledcAttachPin(BUZZ, 0);
-  delay(duration);
-  ledcDetachPin(BUZZ);
-#else
   tone(pin,freq,duration);
-#endif
 }
 
 #if defined LS027B7DH01
@@ -115,11 +112,8 @@ void setup() {
   GFXDisplayPowerOn();
   pinMode(SW3, INPUT_PULLUP); //set GPIO an input with pullup for SW3 & SW2 on Memory LCD Shield
   pinMode(SW2, INPUT_PULLUP);
+  pinMode(BUZZ, OUTPUT);
 
-#if defined (ESP32)
-///@note  Ref: https://github.com/espressif/arduino-esp32/blob/a4305284d085caeddd1190d141710fb6f1c6cbe1/cores/esp32/esp32-hal-ledc.h#L30
-ledcSetup(0, 1000, 8);  //channel 0, freq=1000, resolution_bits = 8
-#endif
   //display Hello in Chinese and Japanese
   uint16_t w = GFXDisplayGetWStringWidth(&fontSimHei_35h, hello_chinese);
   uint16_t h = GFXDisplayGetFontHeight(&fontSimHei_35h);

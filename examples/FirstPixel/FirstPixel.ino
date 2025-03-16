@@ -11,6 +11,10 @@
  *        Date:        14th June 2018
  */
 
+  // Unify tone generation for ESP32 to tone(pin,freq,duration) and for other platforms to buzz(pin,freq,duration)
+  // Date: 16th March 2025
+  // Programmer: John Leung
+
 #include "MemoryLCD.h"
 
 #if defined (ESP32)
@@ -23,17 +27,9 @@ const int SW2 = 5;
 const int BUZZ = 7;
 #endif
 
-void buzz(int pin, unsigned int freq, unsigned long duration);
 void buzz(int pin, unsigned int freq, unsigned long duration)
 {
-#if defined (ESP32)
-  ledcWriteTone(0, (double)freq);
-  ledcAttachPin(BUZZ, 0);
-  delay(duration);
-  ledcDetachPin(BUZZ);
-#else
   tone(pin,freq,duration);
-#endif
 }
 
 void drawLine(int x1, int y1, int x2, int y2, COLOR color);
@@ -43,10 +39,7 @@ void setup() {
   GFXDisplayPowerOn();
   pinMode(SW3, INPUT_PULLUP); //set SW3 pin as input
   pinMode(SW2, INPUT_PULLUP); //set SW2 pin as input
-#if defined (ESP32)
-///@note  Ref: https://github.com/espressif/arduino-esp32/blob/a4305284d085caeddd1190d141710fb6f1c6cbe1/cores/esp32/esp32-hal-ledc.h#L30
-ledcSetup(0, 1000, 8);  //channel 0, freq=1000, resolution_bits = 8
-#endif   
+  pinMode(BUZZ, OUTPUT); //set BUZZ pin as output
 }
 
 void loop() {    

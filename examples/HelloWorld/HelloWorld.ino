@@ -11,6 +11,11 @@
  * @note  Programmer : John Leung <br>
  *        Date:        14th June 2018
  */
+
+  // Unify tone generation for ESP32 to tone(pin,freq,duration) and for other platforms to buzz(pin,freq,duration)
+  // Date: 16th March 2025
+  // Programmer: John Leung
+
 #include "MemoryLCD.h"
 
 #if defined (ESP32)
@@ -33,17 +38,15 @@ const uint16_t hello_japanese[]={0x3053, 0x3093, 0x306B, 0x3061, 0x306F, '\0'};
 ///@note Font: SimHei 35 你好 in unicode 16
 const uint16_t hello_chinese[] ={0x4F60, 0x597D, '\0'};
 
-void buzz(int pin, unsigned int freq, unsigned long duration);
+/**
+ * @brief Generate a tone on the buzzer for a duration
+ * @param pin: the pin number of the buzzer
+ * @param freq: the frequency of the tone
+ * @param duration: the duration of the tone
+ */
 void buzz(int pin, unsigned int freq, unsigned long duration)
 {
-#if defined (ESP32)
-  ledcWriteTone(0, (double)freq);
-  ledcAttachPin(BUZZ, 0);
-  delay(duration);
-  ledcDetachPin(BUZZ);
-#else
   tone(pin,freq,duration);
-#endif
 }
 
 void setup() {
@@ -52,10 +55,7 @@ void setup() {
   GFXDisplayPowerOn();
   pinMode(SW3, INPUT_PULLUP); //set SW3 pin as input
   pinMode(SW2, INPUT_PULLUP); //set SW2 pin as input
-#if defined (ESP32)
-///@note  Ref: https://github.com/espressif/arduino-esp32/blob/a4305284d085caeddd1190d141710fb6f1c6cbe1/cores/esp32/esp32-hal-ledc.h#L30
-ledcSetup(0, 1000, 8);  //channel 0, freq=1000, resolution_bits = 8
-#endif
+  pinMode(BUZZ, OUTPUT);      //set BUZZ pin as output
 }
 
 /**
