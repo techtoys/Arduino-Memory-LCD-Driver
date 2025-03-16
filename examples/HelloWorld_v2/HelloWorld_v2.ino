@@ -21,7 +21,7 @@
   * Programmer : John Leung
   */ 
 
-  // Unify tone generation for ESP32 to tone(pin,freq,duration) and for other platforms to buzz(pin,freq,duration)
+  // Unify tone generation for ESP32 to tone(pin,freq,duration)
   // Date: 16th March 2025
   // Programmer: John Leung
 
